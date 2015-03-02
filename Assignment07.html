@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>  
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>HTML</title>
+		<meta name="description" content="">
+		<meta name="author" content="Eric">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	</head>
+
+	<body id = "color_back">
+<fieldset><legend id = "leg">Enter Your Name and Pick a background color.</legend>
+<input id = "username" type = "text" />
+<button id = "store">Store Name</button>
+<select id = "colorpick">
+  <option value="red">Red</option>
+  <option value="white">White</option>
+  <option value="blue">blue</option>
+</select>
+<!--<button id = "remove">Remove Name</button>-->
+</fieldset>
+
+<script>
+function init () {
+  document.getElementById("store").onclick = storeName;
+  //document.getElementById("store").onclick = color_click;
+  //document.getElementById("remove").onclick = removeName;  
+}
+document.addEventListener("DOMContentLoaded", init, false)
+
+function storeName(){
+	var username = 
+	document.getElementById("username").value ;
+	if(username === "null" || username === "") return false ;
+	localStorage.setItem("user" , username);
+	document.getElementById("username").value = "" ;
+	
+	color_click();
+	NewGuid();
+	document.getElementById( "leg" ).innerHTML = "Hello " + localStorage.getItem( "user" ) + ", your session ID is " +
+	 localStorage.getItem( "sessionGuid" ) ;
+ }
+ 
+function color_click(){
+    var colorOfBackground = document.getElementById('colorpick'),
+    myVar = colorOfBackground.options[colorOfBackground.selectedIndex].value;
+    document.getElementById("color_back").style.backgroundColor=myVar;
+    localStorage.setItem("colorpick" , colorOfBackground);
+    //document.getElementById("colorOfBackground").value = "" ;
+}
+ 
+  function NewGuid()
+         {
+           var sGuid="";
+           for (var i=0; i<32; i++)
+            {
+              sGuid+=Math.floor(Math.random()*0xF).toString(0xF);
+            }
+           localStorage.setItem("sessionGuid" , sGuid);
+         }
+         
+         var i;
+
+console.log("local storage");
+for (i=0; i<localStorage.length; i++)   {
+    console.log(localStorage.key(i)+"=["+localStorage.getItem(localStorage.key(i))+"]");
+}
+
+</script>
+	</body>
+</html>
